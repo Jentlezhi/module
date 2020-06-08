@@ -1,0 +1,17 @@
+//
+//  CYTCashRecordVM.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/12/4.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTExtendViewModel.h"
+#import "CYTCashRecordModel.h"
+
+@interface CYTCashRecordVM : CYTExtendViewModel
+@property (nonatomic, strong) NSMutableArray *listArray;
+@property (nonatomic, assign) NSInteger isMore;
+@property (nonatomic, assign) NSInteger rowId;
+
+@end

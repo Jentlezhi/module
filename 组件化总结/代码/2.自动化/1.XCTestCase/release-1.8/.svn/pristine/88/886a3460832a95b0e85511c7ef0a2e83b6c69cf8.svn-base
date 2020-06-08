@@ -1,0 +1,54 @@
+//
+//  FFCommonCode.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/4/21.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFCommonCode.h"
+
+@implementation FFCommonCode
+
++ (NSComparisonResult)compareDecimalValue1:(float)value1 andValue2:(float)value2 {
+    NSString *str1 = [NSString stringWithFormat:@"%f",value1];
+    NSString *str2 = [NSString stringWithFormat:@"%f",value2];
+    NSDecimalNumber *decimal1 = [NSDecimalNumber decimalNumberWithString:str1];
+    NSDecimalNumber *decimal2 = [NSDecimalNumber decimalNumberWithString:str2];
+    return [decimal1 compare:decimal2];
+}
+
+#pragma mark- NSUserDefaults
++ (void)setValue:(id)value forKey:(NSString *)key {
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (id)valueForKey:(NSString *)key {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+}
+
++ (UIViewController*)topViewController {
+    return [self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+}
+
++ (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        
+        UITabBarController* tabBarController = (UITabBarController*)rootViewController;
+        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
+    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        
+        UINavigationController* navigationController = (UINavigationController*)rootViewController;
+        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
+    } else if (rootViewController.presentedViewController) {
+        
+        UIViewController* presentedViewController = rootViewController.presentedViewController;
+        return [self topViewControllerWithRootViewController:presentedViewController];
+    } else {
+
+        return rootViewController;
+    }
+}
+
+@end

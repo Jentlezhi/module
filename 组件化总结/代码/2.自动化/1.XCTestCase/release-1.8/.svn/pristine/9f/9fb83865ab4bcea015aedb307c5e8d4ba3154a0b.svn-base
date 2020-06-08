@@ -1,0 +1,38 @@
+//
+//  FFBasicNetworkViewModel.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/9/18.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFExtendViewModel.h"
+@class FFBasicNetworkRequestModel;
+@class FFBasicNetworkResponseModel;
+@class FFBasicNetworkManager;
+
+@interface FFBasicNetworkViewModel : FFExtendViewModel
+///command
+@property (nonatomic, strong) RACCommand *requestCommand;
+///hud,0显示，1隐藏
+@property (nonatomic, strong) RACSubject *hudSubject;
+///网络请求
+@property (nonatomic, strong) FFBasicNetworkManager *request;
+
+
+///获取requestCommand
+- (RACCommand *)commandWithRequestModel:(FFBasicNetworkRequestModel*(^)(void))requestBlock andOtherObj:(void(^)(id))otherObj andHandle:(void (^)(FFBasicNetworkResponseModel *responseModel))handleBlock;
+///获取requestCommand
+- (RACCommand *)commandWithRequestModel:(FFBasicNetworkRequestModel*(^)(void))requestBlock andHandle:(void (^)(FFBasicNetworkResponseModel *responseModel))handleBlock;
+
+
+///处理网络请求结果
+- (void)handleResultWithResponse:(FFBasicNetworkResponseModel *)responseModel andHandle:(void (^) (FFBasicNetworkResponseModel *))handleBlock;
+
+
+///子类重写----对输入参数进行操作
+- (FFBasicNetworkRequestModel *)requestModelHandle:(FFBasicNetworkRequestModel *)model;
+///子类重写----对返回参数进行操作
+- (void)responseModelHandleWithModel:(FFBasicNetworkResponseModel *)inputModel andHandle:(void (^)(FFBasicNetworkResponseModel *))handle;
+
+@end

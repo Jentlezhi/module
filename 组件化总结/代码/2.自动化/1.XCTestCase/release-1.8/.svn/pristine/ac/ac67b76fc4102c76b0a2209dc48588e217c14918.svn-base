@@ -1,0 +1,71 @@
+//
+//  CYTVehicleToolsModelListCell.m
+//  CYTEasyPass
+//
+//  Created by Jentle on 2017/9/5.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTVehicleToolsListCell.h"
+#import "CYTVehicleToolsModel.h"
+#import "CYTVehicleToolsListView.h"
+
+@interface CYTVehicleToolsListCell()
+
+/** 自定义view */
+@property(strong, nonatomic) CYTVehicleToolsListView *vehicleToolsListView;
+
+
+@end
+
+@implementation CYTVehicleToolsListCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self vehicleToolsBasicConfig];
+        [self addVehicleToolsComponents];
+        [self inMakeConstrains];
+    }
+    return self;
+}
+
+#pragma mark - 懒加载
+
+- (CYTVehicleToolsListView *)vehicleToolsListView{
+    if (!_vehicleToolsListView) {
+        _vehicleToolsListView = [[CYTVehicleToolsListView alloc] initWithType:CYTVehicleToolsViewTypeList];
+    }
+    return _vehicleToolsListView;
+}
+
+
+/**
+ *  基本配置
+ */
+- (void)vehicleToolsBasicConfig{
+}
+
+/**
+ *  添加子控件
+ */
+- (void)addVehicleToolsComponents{
+    [self.contentView addSubview:self.vehicleToolsListView];
+}
+/**
+ *  布局子控件
+ */
+- (void)inMakeConstrains{
+    
+    [self.vehicleToolsListView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(0);
+    }];
+}
+
+- (void)setVehicleToolsModel:(CYTVehicleToolsModel *)vehicleToolsModel{
+    _vehicleToolsModel = vehicleToolsModel;
+    self.vehicleToolsListView.vehicleToolsModel = vehicleToolsModel;
+}
+
+
+@end

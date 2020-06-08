@@ -1,0 +1,117 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+
+#需要注意的一些问题
+#1、fastlane命令使用时会自动切换路径到fastlane目录下，并且没有办法切换到上级目录，因为fastlane目录不是项目的根目录，所以使用时会有部分功能无法实现如：svn upgrade。
+#2、cocoapods和fir-cli在使用bundle install 安装时底层依赖冲突,所以无法实现在fastFile中同时使用。
+#3、直接调用fastlane abd pname:xxxx,其他参数可选
+    #type：urltype
+    #des：描述
+    #ipa_path：ipa包存储信息存放位置
+    #ipaInfo_path：打包信息存储位置
+    #backups_path：ipa和dsym备份路径
+#4、关于ENV的使用，在当前目录下创建.evn文件，在其中定义变量然后即可使用ENV['name']使用
+#5、说明在fastlane中使用其他命令，需要使用  sh "命令" 格式
+#6、注意双引号和单引号不同！
+
+fastlane_version "2.39.2"
+default_platform :ios
+
+platform :ios do
+
+  before_all do
+    #更新gem安装的插件(gemFile在文本中增加编译打包过程中需要的全部组件。)
+    sh "bundle update"
+    cocoapods
+  end
+
+  desc "自动打包"
+  lane :abd do |options|
+
+    #获取项目名称
+    par_projectName = options[:pname]?options[:pname]:'demo'
+    #安装包url环境 0-开发，1-测试，2-生产
+    par_urlType     = options[:type]?options[:type]:1
+    #描述文案
+    par_des         = options[:des]?options[:des]:'自动编译打包'
+    #获取ipa文件输出名称
+    par_time        = Time.now.strftime("%m_%d_%H_%M")
+    #plist文件路径
+    par_plistPath   = get_info_plist_path
+    #获取版本号
+    par_version     = get_version_number_from_plist
+    #获取包名
+    par_outputName  = "#{par_projectName}_#{par_version}_#{par_time}.ipa"
+
+    #ipa包存储位置
+    par_ipa_path        = options[:ipa_path]?options[:ipa_path]:'ipa_path'
+    #ipa打包信息存储位置
+    par_ipaInfo_path    = options[:ipaInfo_path]?options[:ipaInfo_path]:'ipaInfo_path'
+    #备份位置
+    par_ipaBackups_path = options[:backups_path]?options[:backups_path]:'backups_path'
+    #导出方法
+    par_emethod         = options[:emethod]?options[:emethod]:'ad-hoc'
+
+   
+    #修改info.plist参数用来分辨正式地址还是测试地址
+    set_info_plist_value(path: par_plistPath, key: "domainType", value: par_urlType)
+    #增加build号(插件 fastlane-plugin-versioning )
+    increment_build_number_in_plist
+    #开始编译
+    gym(output_name:par_outputName,
+          workspace:"#{par_projectName}.xcworkspace",
+             scheme:"#{par_projectName}",
+              clean:true,
+      configuration:"Release",
+      export_method:"#{par_emethod}",
+   output_directory:"./fastlane/build"
+      )
+
+
+    #将信息写入本地文件中
+    par_buildId = get_build_number_from_plist
+    par_ipa_des = "par_projectName=#{par_projectName},par_urlType=#{par_urlType},par_des=#{par_des},par_emethod=#{par_emethod},version=#{par_version},buildId=#{par_buildId},time=#{par_time}"
+    sh "echo #{par_ipa_des} > #{par_ipaInfo_path}"
+    par_ipaPath = "fastlane/build/#{par_outputName}"
+    sh "echo #{par_ipaPath} > #{par_ipa_path}"
+    
+
+    #移动ipa和dsym到指定目录中
+    sh "if [ ! -d #{par_ipaBackups_path} ]; then  mkdir #{par_ipaBackups_path} ;fi "
+    sh "cp -a build/*  #{par_ipaBackups_path}"
+
+  end
+
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    #say "Successfully finished deployment (#{lane})!"
+  end
+
+  error do |lane, exception|
+    #slack(
+    #  message: "Something went wrong with the deployment.",
+    #  success: false,
+    #  payload: { "Error Info" => exception.error_info.to_s } 
+    #)
+  end
+end
+
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://docs.fastlane.tools/actions
+
+# fastlane reports which actions are used. No personal data is recorded. 
+# Learn more at https://github.com/fastlane/fastlane#metrics

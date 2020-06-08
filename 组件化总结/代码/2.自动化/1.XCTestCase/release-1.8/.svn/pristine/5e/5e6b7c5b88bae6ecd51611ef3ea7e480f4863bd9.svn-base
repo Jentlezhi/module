@@ -1,0 +1,15 @@
+//
+//  CarFilterController.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/10/11.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTBasicViewController.h"
+#import "CarFilterVM.h"
+
+@interface CarFilterController : CYTBasicViewController
+@property (nonatomic, strong) CarFilterVM *viewModel;
+
+@end

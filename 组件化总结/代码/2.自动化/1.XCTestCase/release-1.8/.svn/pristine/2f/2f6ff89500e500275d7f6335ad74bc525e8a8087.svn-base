@@ -1,0 +1,122 @@
+//
+//  CYTWithdrawCell.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/12/5.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTWithdrawCell.h"
+
+@interface CYTWithdrawCell ()
+
+@end
+
+@implementation CYTWithdrawCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+#pragma mark- flow control
+///cell加载子视图
+- (void)ffSubviewsAndConfig:(void (^)(NSArray *, ffDefaultBlock))block {
+    NSArray *views = @[self.iconImageView,self.titleLabel,self.describeLabel,self.selectButton];
+    block(views,^{
+        self.bottomHeight = 0;
+    });
+}
+
+///cell布局
+- (void)updateConstraints {
+    [self.iconImageView updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(CYTMarginH);
+        make.top.equalTo(CYTAutoLayoutV(25));
+        make.bottom.equalTo(-CYTAutoLayoutV(25));
+        make.width.height.equalTo(CYTAutoLayoutH(70));
+    }];
+    [self.titleLabel updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.iconImageView.right).offset(CYTItemMarginH);
+        make.top.equalTo(self.iconImageView);
+    }];
+    [self.describeLabel updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.titleLabel);
+        make.bottom.equalTo(self.iconImageView);
+    }];
+    [self.selectButton updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(0);
+        make.right.equalTo(-CYTMarginH);
+        make.width.height.equalTo(CYTAutoLayoutH(40));
+    }];
+    
+    [super updateConstraints];
+}
+
+///自定义cell样式
+- (void)setFfCustomizeCellModel:(FFExtendTableViewCellModel *)ffCustomizeCellModel {
+    
+}
+
+#pragma mark- api
+
+#pragma mark- method
+
+#pragma mark- set
+///cell赋值
+- (void)setFfModel:(id)ffModel {
+    self.model = ffModel;
+}
+
+- (void)setModel:(CYTWithdrawTypeModel *)model {
+    _model = model;
+    self.iconImageView.image = [UIImage imageNamed:model.iconName];
+    self.titleLabel.text = model.title;
+    self.describeLabel.text = model.describe;
+    NSString *imageName = (model.select)?@"pay_box_select":@"pay_box_nor";
+    [self.selectButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+}
+
+#pragma mark- get
+- (UIImageView *)iconImageView {
+    if (!_iconImageView) {
+        _iconImageView = [UIImageView ff_imageViewWithImageName:nil];
+    }
+    return _iconImageView;
+}
+
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [UILabel labelWithFontPxSize:30 textColor:kFFColor_title_L1];
+    }
+    return _titleLabel;
+}
+
+- (UILabel *)describeLabel {
+    if (!_describeLabel) {
+        _describeLabel = [UILabel labelWithFontPxSize:22 textColor:kFFColor_title_gray];
+    }
+    return _describeLabel;
+}
+
+- (UIButton *)selectButton {
+    if (!_selectButton) {
+        _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_selectButton enlargeWithValue:5];
+        @weakify(self);
+        [[_selectButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            !self.selectBlock?:self.selectBlock();
+        }];
+    }
+    return _selectButton;
+}
+
+
+@end

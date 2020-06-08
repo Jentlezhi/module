@@ -1,0 +1,12 @@
+
+source 'https://gems.ruby-china.org/' 
+
+#无法兼容 fir-cli  和  cocoapods 因为他们依赖的netrc 版本有冲突
+#gem "fir-cli"
+gem "cocoapods", "~>1.2"
+gem "fastlane"
+#fastlane 使用的插件
+gem "fastlane-plugin-versioning"
+
+plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
+eval_gemfile(plugins_path) if File.exist?(plugins_path)

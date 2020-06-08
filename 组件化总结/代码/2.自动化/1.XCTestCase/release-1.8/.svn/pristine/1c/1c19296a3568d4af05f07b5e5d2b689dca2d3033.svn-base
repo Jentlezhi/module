@@ -1,0 +1,15 @@
+//
+//  CYTCashRecordTableController.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/12/4.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFExtendTableViewController.h"
+#import "CYTCashRecordVM.h"
+
+@interface CYTCashRecordTableController : FFExtendTableViewController
+@property (nonatomic, strong) CYTCashRecordVM *viewModel;
+
+@end

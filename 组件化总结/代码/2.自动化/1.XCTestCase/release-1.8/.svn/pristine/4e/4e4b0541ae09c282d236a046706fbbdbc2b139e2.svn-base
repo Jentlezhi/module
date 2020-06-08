@@ -1,0 +1,121 @@
+//
+//  CYTWithdrawHeadView.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/12/5.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTWithdrawHeadView.h"
+
+@interface CYTWithdrawHeadView ()
+
+@end
+
+@implementation CYTWithdrawHeadView
+
+#pragma mark- flow control
+- (void)ff_initWithViewModel:(id)viewModel {
+    [super ff_initWithViewModel:viewModel];
+}
+
+- (void)ff_bindViewModel {
+    [super ff_bindViewModel];
+}
+
+- (void)ff_addSubViewAndConstraints {
+    [super ff_addSubViewAndConstraints];
+    
+    [self addSubview:self.flagLabel];
+    [self addSubview:self.symbolLabel];
+    [self addSubview:self.cashLabel];
+    [self addSubview:self.line];
+    [self addSubview:self.describeView];
+    [self addSubview:self.describeLabel];
+    
+    [self.flagLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(CYTItemMarginH);
+        make.top.equalTo(CYTMarginV);
+    }];
+    [self.symbolLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.flagLabel);
+        make.centerY.equalTo(self.cashLabel);
+    }];
+    [self.cashLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.symbolLabel.right).offset(CYTItemMarginH);
+        make.top.equalTo(CYTAutoLayoutV(100));
+        make.right.lessThanOrEqualTo(-CYTMarginH);
+    }];
+    [self.line makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.flagLabel);
+        make.right.equalTo(-CYTItemMarginH);
+        make.height.equalTo(kFFLayout_line);
+        make.top.equalTo(CYTAutoLayoutV(220));
+    }];
+    [self.describeView makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(0);
+        make.top.equalTo(self.line.bottom);
+    }];
+    [self.describeLabel makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(CYTMarginH);
+        make.right.equalTo(-CYTItemMarginH);
+        make.top.equalTo(self.describeView).offset(CYTItemMarginV);
+        make.bottom.lessThanOrEqualTo(-CYTItemMarginV);
+    }];
+}
+
+#pragma mark- api
+
+#pragma mark- method
+
+#pragma mark- set
+
+#pragma mark- get
+- (UILabel *)flagLabel {
+    if (!_flagLabel) {
+        _flagLabel = [UILabel labelWithFontPxSize:26 textColor:kFFColor_title_L2];
+        _flagLabel.text = @"提现金额：";
+    }
+    return _flagLabel;
+}
+
+- (UILabel *)symbolLabel {
+    if (!_symbolLabel) {
+        _symbolLabel = [UILabel labelWithFontPxSize:70 textColor:CYTGreenNormalColor];
+        _symbolLabel.text = @"￥";
+    }
+    return _symbolLabel;
+}
+
+- (UILabel *)cashLabel {
+    if (!_cashLabel) {
+        _cashLabel = [UILabel labelWithFontPxSize:80 textColor:CYTGreenNormalColor];
+        _cashLabel.text = @"0.00";
+    }
+    return _cashLabel;
+}
+
+- (UIView *)line {
+    if (!_line) {
+        _line = [UIView new];
+        _line.backgroundColor = kFFColor_line;
+    }
+    return _line;
+}
+
+- (UIView *)describeView {
+    if (!_describeView) {
+        _describeView = [UIView new];
+    }
+    return _describeView;
+}
+
+- (UILabel *)describeLabel {
+    if (!_describeLabel) {
+        _describeLabel = [UILabel labelWithFontPxSize:26 textColor:CYTRedColor];
+        _describeLabel.text = @"提现手续费已由平台为你全额垫付";
+    }
+    return _describeLabel;
+}
+
+@end

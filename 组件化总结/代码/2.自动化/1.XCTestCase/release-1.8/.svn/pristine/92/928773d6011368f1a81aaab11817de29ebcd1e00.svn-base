@@ -1,0 +1,74 @@
+//
+//  CYTLogisticsNeedServiceCell.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/5/11.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTLogisticsNeedServiceCell.h"
+
+@implementation CYTLogisticsNeedServiceCell
+
+- (void)ffSubviewsAndConfig:(void (^)(NSArray *, ffDefaultBlock))block {
+    NSArray *views = @[self.titleLab,self.flagImageView,self.subTitleLabel,self.chooseImageView];
+    block(views,^{
+        self.bottomHeight = 0;
+    });
+}
+
+- (void)updateConstraints {
+    [self.titleLab updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(CYTAutoLayoutH(30));
+        make.top.equalTo(CYTAutoLayoutV(30));
+    }];
+    [self.flagImageView updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.titleLab);
+        make.top.equalTo(self.titleLab.bottom).offset(CYTAutoLayoutV(28));
+        make.bottom.equalTo(-CYTAutoLayoutV(20));
+    }];
+    [self.subTitleLabel updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.flagImageView.right).offset(CYTAutoLayoutH(10));
+        make.centerY.equalTo(self.flagImageView);
+    }];
+    [self.chooseImageView updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.ffContentView);
+        make.right.equalTo(-CYTAutoLayoutH(30));
+    }];
+    
+    [super updateConstraints];
+}
+
+#pragma mark- get
+- (UILabel *)titleLab {
+    if (!_titleLab) {
+        _titleLab = [UILabel labelWithFontPxSize:28 textColor:kTitleMainColor];
+    }
+    return _titleLab;
+}
+
+- (UIImageView *)flagImageView {
+    if (!_flagImageView) {
+        _flagImageView = [UIImageView new];
+        _flagImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _flagImageView;
+}
+
+- (UILabel *)subTitleLabel {
+    if (!_subTitleLabel) {
+        _subTitleLabel = [UILabel labelWithFontPxSize:22 textColor:kColor_666666];
+        _subTitleLabel.numberOfLines = 0;
+    }
+    return _subTitleLabel;
+}
+
+- (UIImageView *)chooseImageView {
+    if (!_chooseImageView) {
+        _chooseImageView = [UIImageView new];
+        _chooseImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _chooseImageView;
+}
+
+@end

@@ -1,0 +1,38 @@
+//
+//  CYTCarOrderListVM.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/8/29.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTCarOrderListVM.h"
+
+@implementation CYTCarOrderListVM
+
+- (void)getControllersArrayWithParent:(id)parent {
+    NSArray *titleArray;
+    NSArray *stateArray;
+    if (self.orderType == CarOrderTypeBought) {
+        //买车
+        titleArray = @[@"全部",@"待付款",@"待接单",@"待成交",@"退款",@"待评价"];
+        stateArray = @[@(CarOrderStateAll),@(CarOrderStateUnPay),@(CarOrderStateUnSendCar),@(CarOrderStateUnReceiveCar),@(CarOrderStateRefund),@(CarOrderStateUnComment)];
+    }else {
+        //卖车
+        titleArray = @[@"全部",@"待付款",@"待接单",@"待成交",@"退款",@"待提现",@"待评价"];
+        stateArray = @[@(CarOrderStateAll),@(CarOrderStateUnPay),@(CarOrderStateUnSendCar),@(CarOrderStateUnReceiveCar),@(CarOrderStateRefund),@(CarOrderStateWithdraw),@(CarOrderStateUnComment)];
+    }
+    
+    self.statecontrollerArray = [NSMutableArray array];
+    for (int i=0; i<titleArray.count; i++) {
+        CYTCarOrderItemViewController *itemController = [CYTCarOrderItemViewController new];
+        itemController.orderList = parent;
+        itemController.title = titleArray[i];
+        itemController.viewModel.title = titleArray[i];
+        itemController.viewModel.orderState = [stateArray[i] integerValue];
+        itemController.viewModel.orderType = self.orderType;
+        [self.statecontrollerArray addObject:itemController];
+    }
+}
+
+@end

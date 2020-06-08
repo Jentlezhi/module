@@ -1,0 +1,23 @@
+//
+//  FFMainViewConfigViewModel.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/7/25.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFExtendViewModel.h"
+
+@interface FFMainViewConfigViewModel : FFExtendViewModel
+///设置table类型
+@property (nonatomic, assign) UITableViewStyle style;
+///headerHeight
+@property (nonatomic, assign) float headerHeight;
+///headerColor
+@property (nonatomic, strong) UIColor *headerColor;
+///footerHeight
+@property (nonatomic, assign) float footerHeight;
+///footerColor
+@property (nonatomic, strong) UIColor *footerColor;
+
+@end

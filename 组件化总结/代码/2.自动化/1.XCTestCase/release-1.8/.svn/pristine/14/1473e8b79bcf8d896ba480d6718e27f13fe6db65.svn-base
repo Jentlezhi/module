@@ -1,0 +1,15 @@
+//
+//  CYTUpdateManager.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/5/5.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTExtendViewModel.h"
+#import "CYTUpdateModel.h"
+
+@interface CYTUpdateManager : CYTExtendViewModel
++ (void)update;
+
+@end

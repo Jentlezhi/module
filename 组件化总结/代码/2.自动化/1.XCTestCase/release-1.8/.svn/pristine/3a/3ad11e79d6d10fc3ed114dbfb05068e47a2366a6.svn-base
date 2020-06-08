@@ -1,0 +1,127 @@
+//
+//  CYTGetCashVM.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/3/20.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTGetCashVM.h"
+#import "AESCrypt.h"
+
+@interface CYTGetCashVM()
+@property (nonatomic, assign) NSInteger typeIndex;
+
+@end
+
+@implementation CYTGetCashVM
+@synthesize requestCommand = _requestCommand;
+
+- (void)ff_initWithModel:(FFExtendModel *)model {
+    [super ff_initWithModel:model];
+    self.withdrawTypeArray = [NSMutableArray array];
+    
+    CYTWithdrawTypeModel *alipay = [CYTWithdrawTypeModel new];
+    alipay.iconName = @"pay_zhifubao";
+    alipay.title = @"支付宝";
+    alipay.describe = @"推荐支付宝用户使用";
+    alipay.select = YES;
+    [self.withdrawTypeArray addObject:alipay];
+    
+    self.typeIndex = 0;
+}
+
+- (void)setAccountName:(NSString *)accountName {
+    _accountName = accountName;
+    self.canSubmit = (accountName.length>0 && _account.length>0);
+}
+
+- (void)setAccount:(NSString *)account {
+    _account = account;
+    self.canSubmit = (_accountName.length>0 && account.length>0);
+}
+
+#pragma mark- api
+- (void)api_didSelectWithIndex:(NSInteger)index {
+    if (self.typeIndex == index) {
+        //上一次和这一次是相同的
+        CYTWithdrawTypeModel *model = self.withdrawTypeArray[index];
+        model.select = !model.select;
+        self.typeIndex = index;
+    }else {
+        //不同
+        CYTWithdrawTypeModel *lastModel = self.withdrawTypeArray[self.typeIndex];
+        lastModel.select = NO;
+        
+        CYTWithdrawTypeModel *model = self.withdrawTypeArray[index];
+        model.select = YES;
+        
+        self.typeIndex = index;
+    }
+}
+
+#pragma mark- get
+- (BOOL)canWithdraw {
+    //遍历数组，判断
+    if (self.withdrawCash.length>0 && [self.withdrawCash floatValue] != 0) {
+        for (CYTWithdrawTypeModel *model in self.withdrawTypeArray) {
+            if (model.select) {
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
+- (RACCommand *)requestCommand {
+    if (!_requestCommand) {
+        _requestCommand = [self commandWithRequestModel:^FFBasicNetworkRequestModel *{
+            FFBasicNetworkRequestModel *model = [FFBasicNetworkRequestModel new];
+            model.requestURL = kURL.user_useraccount_withdraw;
+            model.needHud = YES;
+            NSString *userID = CYTUserId;
+            NSString *secretKey = [NSString tokenValueOf16];
+            NSString *Amount = [AESCrypt encrypt:self.withdrawCash password:secretKey];
+            NSString *IncomeAccountNO = [AESCrypt encrypt:self.account password:secretKey];
+            NSString *PassWord = [AESCrypt encrypt:self.pwdString password:secretKey];
+            NSString *accountName = [AESCrypt encrypt:self.accountName password:secretKey];
+
+            NSDictionary *parameters = @{@"accountID":userID,
+                                         @"amount":Amount,
+                                         @"incomeAccountNO":IncomeAccountNO,
+                                         @"accountName":accountName,
+                                         @"passWord":PassWord,
+                                         @"tokenValue":Token_Value};
+            model.requestParameters = parameters;
+            
+            return model;
+        } andHandle:^(FFBasicNetworkResponseModel *resultModel) {
+            //none
+        }];
+    }
+    return _requestCommand;
+}
+
+- (RACCommand *)accessCashCommand {
+    if (!_accessCashCommand) {
+        _accessCashCommand = [self commandWithRequestModel:^FFBasicNetworkRequestModel *{
+            FFBasicNetworkRequestModel *model = [FFBasicNetworkRequestModel new];
+            model.requestURL = kURL.user_useraccount_myaccount;
+            model.needHud = YES;
+            model.requestParameters = @{@"accountID":CYTUserId};
+            return model;
+        } andHandle:^(FFBasicNetworkResponseModel *responseModel) {
+#warning 1234 这里获取提现金额，是使用原来的这个接口，这个参数吗？？？
+            if (responseModel.resultEffective) {
+                float withdraw = [responseModel.dataDictionary[@"availableBalance"] floatValue];
+                self.withdrawCash = [NSString stringWithFormat:@"%.2f",withdraw];
+            }else {
+                self.withdrawCash = @"0.00";
+            }
+        }];
+    }
+    return _accessCashCommand;
+}
+
+@end

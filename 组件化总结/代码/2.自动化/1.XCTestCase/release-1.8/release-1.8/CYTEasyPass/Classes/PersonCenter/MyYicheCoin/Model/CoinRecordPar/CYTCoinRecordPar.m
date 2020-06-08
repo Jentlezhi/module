@@ -1,0 +1,14 @@
+//
+//  CYTCoinRecordPar.m
+//  CYTEasyPass
+//
+//  Created by Jentle on 2017/11/22.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTCoinRecordPar.h"
+
+@implementation CYTCoinRecordPar
+
+
+@end

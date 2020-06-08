@@ -1,0 +1,122 @@
+//
+//  CYTCashRecordCell.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/12/5.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTCashRecordCell.h"
+
+@interface CYTCashRecordCell ()
+
+@end
+
+@implementation CYTCashRecordCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+#pragma mark- flow control
+///cell加载子视图
+- (void)ffSubviewsAndConfig:(void (^)(NSArray *, ffDefaultBlock))block {
+    NSArray *views = @[self.recordTypeLabel,self.cashAmountLabel,self.orderNumberLabel,self.timeLabel];
+    block(views,^{
+        self.bottomLeftOffset = CYTItemMarginH;
+        self.bottomRightOffset = -CYTItemMarginH;
+        [self.recordTypeLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    });
+}
+
+///cell布局
+- (void)updateConstraints {
+    [self.recordTypeLabel updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(CYTItemMarginH);
+        make.top.equalTo(CYTMarginV);
+    }];
+    [self.cashAmountLabel updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.recordTypeLabel);
+        make.left.greaterThanOrEqualTo(self.recordTypeLabel.right).offset(CYTItemMarginH);
+        make.right.equalTo(-CYTItemMarginH);
+    }];
+    [self.orderNumberLabel updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.recordTypeLabel);
+        make.top.equalTo(self.recordTypeLabel.bottom).offset(CYTItemMarginV);
+        make.bottom.equalTo(-CYTItemMarginV);
+    }];
+    [self.timeLabel updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.orderNumberLabel);
+        make.right.equalTo(self.cashAmountLabel);
+    }];
+    
+    [super updateConstraints];
+}
+
+///自定义cell样式
+- (void)setFfCustomizeCellModel:(FFExtendTableViewCellModel *)ffCustomizeCellModel {
+    
+}
+
+#pragma mark- api
+
+#pragma mark- method
+
+#pragma mark- set
+///cell赋值
+- (void)setFfModel:(id)ffModel {
+    self.model = ffModel;
+}
+
+- (void)setModel:(CYTCashRecordModel *)model {
+    _model = model;
+    
+    self.recordTypeLabel.text = model.billsDescription;
+    NSString *cashString = [NSString stringWithFormat:@"%@ 元",model.amount];
+    self.cashAmountLabel.text = cashString;
+    NSString *yuan = @"元";
+    NSRange range = [cashString rangeOfString:yuan];
+    [self.cashAmountLabel updateWithRange:range font:CYTFontWithPixel(32) color:CYTGreenNormalColor];
+    
+    self.orderNumberLabel.text = model.orderNum;
+    self.timeLabel.text = model.time;
+}
+
+#pragma mark- get
+- (UILabel *)recordTypeLabel {
+    if (!_recordTypeLabel) {
+        _recordTypeLabel = [UILabel labelWithFontPxSize:32 textColor:kFFColor_title_L1];
+    }
+    return _recordTypeLabel;
+}
+
+- (UILabel *)cashAmountLabel {
+    if (!_cashAmountLabel) {
+        _cashAmountLabel = [UILabel labelWithFontPxSize:50 textColor:CYTGreenNormalColor];
+    }
+    return _cashAmountLabel;
+}
+
+- (UILabel *)orderNumberLabel {
+    if (!_orderNumberLabel) {
+        _orderNumberLabel = [UILabel labelWithFontPxSize:26 textColor:kFFColor_title_gray];
+    }
+    return _orderNumberLabel;
+}
+
+- (UILabel *)timeLabel {
+    if (!_timeLabel) {
+        _timeLabel = [UILabel labelWithFontPxSize:26 textColor:kFFColor_title_gray];
+    }
+    return _timeLabel;
+}
+
+
+@end

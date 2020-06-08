@@ -1,0 +1,168 @@
+//
+//  CYTWithdrawTableController.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/12/5.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTWithdrawTableController.h"
+#import "CYTWithdrawCell.h"
+#import "CYTWithdrawTypeModel.h"
+#import "CYTGetCashBottomView.h"
+#import "CYTWithdrawHeadView.h"
+#import "CYTGetCashNextCtr.h"
+
+@interface CYTWithdrawTableController ()
+@property (nonatomic, strong) CYTWithdrawHeadView *headView;
+@property (nonatomic, strong) CYTGetCashBottomView *bottomView;
+
+@end
+
+@implementation CYTWithdrawTableController
+@synthesize showNavigationView = _showNavigationView;
+@synthesize mainView = _mainView;
+
+#pragma mark- flow control
+- (void)ff_addSubViewAndConstraints {
+    [super ff_addSubViewAndConstraints];
+    
+    [self.ffContentView addSubview:self.mainView];
+    [self.ffContentView addSubview:self.bottomView];
+    [self.mainView makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(0);
+    }];
+    [self.bottomView makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mainView.bottom);
+        make.left.equalTo(CYTMarginH);
+        make.right.equalTo(-CYTMarginH);
+        make.bottom.equalTo(-CYTMarginV);
+        make.height.equalTo(CYTAutoLayoutV(90));
+    }];
+}
+
+- (void)ff_bindViewModel {
+    [super ff_bindViewModel];
+    
+    @weakify(self);
+    [self.viewModel.hudSubject subscribeNext:^(id x) {
+        if (self.showing) {
+            if ([x integerValue]==0) {
+                [CYTLoadingView showLoadingWithType:CYTLoadingViewTypeEditNavBar];
+            }else {
+                [CYTLoadingView hideLoadingView];
+            }
+        }
+    }];
+    
+    [self.viewModel.accessCashCommand.executionSignals.switchToLatest subscribeNext:^(FFBasicNetworkResponseModel *responseModel) {
+        @strongify(self);
+        //1、设置head，提现金额
+        self.headView.cashLabel.text = self.viewModel.withdrawCash;
+        self.bottomView.actionEnable = self.viewModel.canWithdraw;
+        
+        //2、提示
+        if (!responseModel.resultEffective) {
+            [CYTToast errorToastWithMessage:responseModel.resultMessage];
+        }
+    }];
+}
+
+- (void)ff_initWithViewModel:(id)viewModel {
+    [super ff_initWithViewModel:viewModel];
+    _showNavigationView = YES;
+}
+
+#pragma mark- life Cycle
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [CYTTools updateNavigationBarWithController:self showBackView:YES showLine:YES];
+    self.ffTitle = @"提现";
+    [self.mainView.tableView reloadData];
+    [self.viewModel.accessCashCommand execute:nil];
+}
+
+#pragma mark- delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.viewModel.withdrawTypeArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    FFExtendTableViewCellModel *ccModel = [FFExtendTableViewCellModel new];
+    ccModel.ffIndexPath = indexPath;
+    ccModel.ffIdentifier = [CYTWithdrawCell identifier];
+    FFExtendTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ccModel.ffIdentifier forIndexPath:ccModel.ffIndexPath];
+    cell.ffCustomizeCellModel = ccModel;
+    CYTWithdrawTypeModel *model = self.viewModel.withdrawTypeArray[indexPath.row];
+    cell.ffModel = model;
+    @weakify(self);
+    [((CYTWithdrawCell *)cell) setSelectBlock:^{
+        @strongify(self);
+        [self.viewModel api_didSelectWithIndex:indexPath.row];
+        self.bottomView.actionEnable = self.viewModel.canWithdraw;
+        [self.mainView.tableView reloadData];
+    }];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+#pragma mark- method
+- (void)ff_leftClicked:(FFNavigationItemView *)backView {
+    [super ff_leftClicked:backView];
+}
+
+#pragma mark- get
+- (FFMainView *)mainView {
+    if (!_mainView) {
+        FFMainViewConfigViewModel *configVM = [FFMainViewConfigViewModel new];
+//        configVM.style = UITableViewStyleGrouped;
+        _mainView = [[FFMainView alloc] initWithViewModel:configVM];
+        _mainView.delegate = self;
+        [CYTTools configForMainView:_mainView ];
+//        _mainView.dznCustomViewModel.shouldDisplay = NO;
+        _mainView.mjrefreshSupport = MJRefreshSupportNone;
+        [_mainView registerCellWithIdentifier:@[[CYTWithdrawCell identifier]]];
+        _mainView.tableView.ffBgColor = [UIColor whiteColor];
+        
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, CYTAutoLayoutV(330));
+        _mainView.tableView.tableHeaderView = self.headView;
+    }
+    return _mainView;
+}
+
+- (CYTWithdrawVM* )viewModel {
+    if (!_viewModel) {
+        _viewModel = [CYTWithdrawVM new];
+    }
+    return _viewModel;
+}
+
+- (CYTGetCashBottomView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [CYTGetCashBottomView new];
+        [_bottomView.actionButton setTitle:@"去提现" forState:UIControlStateNormal];
+        _bottomView.actionEnable = NO;
+        @weakify(self);
+        [_bottomView setClickedBlock:^{
+            @strongify(self);
+            CYTGetCashNextCtr *nextView = [CYTGetCashNextCtr new];
+            nextView.viewModel = self.viewModel;
+            [self.navigationController pushViewController:nextView animated:YES];
+        }];
+    }
+    return _bottomView;
+}
+
+- (CYTWithdrawHeadView *)headView {
+    if (!_headView) {
+        _headView = [CYTWithdrawHeadView new];
+    }
+    return _headView;
+}
+
+@end

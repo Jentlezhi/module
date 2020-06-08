@@ -1,0 +1,19 @@
+//
+//  CYTGetColorBasicViewController.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/6/1.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTBasicViewController.h"
+#import "CYTGetColorBasicCell.h"
+#import "CYTGetColorBasicVM.h"
+
+@interface CYTGetColorBasicViewController : CYTBasicViewController
+///内饰颜色还是外观颜色
+@property (nonatomic, assign) BOOL inColor;
+@property (nonatomic, strong) CYTGetColorBasicVM *viewModel;
+@property (nonatomic, strong) UITableView *tableView;
+
+@end

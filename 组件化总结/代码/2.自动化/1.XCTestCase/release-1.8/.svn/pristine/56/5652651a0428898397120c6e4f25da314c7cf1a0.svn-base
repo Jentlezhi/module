@@ -1,0 +1,20 @@
+//
+//  FFBasicMVVM.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/5/10.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#ifndef FFBasicMVVM_h
+#define FFBasicMVVM_h
+
+#import "FFExtendModel.h"
+#import "FFExtendView.h"
+#import "FFBasicCollectionViewCell.h"
+#import "FFBasicNavigationController.h"
+#import "FFDZNEmptyView.h"
+#import "FFDZNLoadingView.h"
+#import "FFDZNReloadView.h"
+
+#endif /* FFBasicMVVM_h */

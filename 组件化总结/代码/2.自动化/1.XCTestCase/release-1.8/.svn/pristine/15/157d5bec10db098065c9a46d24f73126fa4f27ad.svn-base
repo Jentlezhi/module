@@ -1,0 +1,14 @@
+//
+//  CYTShakeContentView.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/9/28.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFBasicSupernatant.h"
+#import "CYTSendCarSupernatantContent.h"
+
+@interface CYTShakeContentView : FFBasicSupernatant
+
+@end

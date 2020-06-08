@@ -1,0 +1,18 @@
+//
+//  UILabel+FFCommon.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/6/29.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UILabel (FFCommon)
+///快速创建label
++ (UILabel *)labelWithFontPxSize:(float)pxSize textColor:(UIColor *)color;
+
+///为label设置不同字体颜色
+- (void)updateWithRange:(NSRange)range font:(UIFont *)font color:(UIColor *)color;
+
+@end

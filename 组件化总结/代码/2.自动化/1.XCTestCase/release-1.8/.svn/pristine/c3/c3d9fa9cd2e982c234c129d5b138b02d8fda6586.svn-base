@@ -1,0 +1,105 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++C245CFE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++3735+++D889102" : {
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++5839" : {
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++4593" : {
+      "DVTSourceControlWorkingCopyRepositoryBranchesLocationKey" : "YXT\/iOS\/branches",
+      "DVTSourceControlWorkingCopyRepositoryTagsLocationKey" : "YXT\/iOS\/tags",
+      "DVTSourceControlWorkingCopyRepositoryPrimaryBranchLocationKey" : "YXT\/iOS\/trunk"
+    },
+<<<<<<< .working
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++9279+++1A30CEC" : {
+||||||| .merge-left.r1569
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++4593" : {
+=======
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++5839" : {
+>>>>>>> .merge-right.r1706
+      "DVTSourceControlWorkingCopyRepositoryBranchesLocationKey" : "YXT\/iOS\/branches",
+      "DVTSourceControlWorkingCopyRepositoryTagsLocationKey" : "YXT\/iOS\/tags",
+      "DVTSourceControlWorkingCopyRepositoryPrimaryBranchLocationKey" : "YXT\/iOS\/trunk"
+    },
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++BDF3A88" : {
+
+    },
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++C245CFE" : {
+      "DVTSourceControlWorkingCopyRepositoryBranchesLocationKey" : "YXT\/iOS\/branches",
+      "DVTSourceControlWorkingCopyRepositoryTagsLocationKey" : "YXT\/iOS\/tags",
+      "DVTSourceControlWorkingCopyRepositoryPrimaryBranchLocationKey" : "YXT\/iOS\/trunk"
+    },
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++4593+++9624568" : {
+      "DVTSourceControlWorkingCopyRepositoryBranchesLocationKey" : "YXT\/iOS\/branches",
+      "DVTSourceControlWorkingCopyRepositoryTagsLocationKey" : "YXT\/iOS\/tags",
+      "DVTSourceControlWorkingCopyRepositoryPrimaryBranchLocationKey" : "YXT\/iOS\/trunk"
+    },
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++5839+++E593D15" : {
+      "DVTSourceControlWorkingCopyRepositoryBranchesLocationKey" : "YXT\/iOS\/branches",
+      "DVTSourceControlWorkingCopyRepositoryTagsLocationKey" : "YXT\/iOS\/tags",
+      "DVTSourceControlWorkingCopyRepositoryPrimaryBranchLocationKey" : "YXT\/iOS\/trunk"
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++3735+++D889102" : 9223372036854775807,
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++9279+++1A30CEC" : 9223372036854775807,
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++BDF3A88" : 9223372036854775807,
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++C245CFE" : 9223372036854775807,
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++4593+++9624568" : 9223372036854775807,
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++5839+++E593D15" : 9223372036854775807
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2322" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0AD7F076-6BED-4244-9F59-5739E831F33A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+<<<<<<< .working
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++3735+++D889102" : "optimize_publish\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++9279+++1A30CEC" : "wuliu\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++BDF3A88" : "EasyPass\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++C245CFE" : "transport\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++4593+++9624568" : "release\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++5839+++E593D15" : "EasyPass\/"
+||||||| .merge-left.r1569
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++9279" : "wuliu\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++4593" : "release\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++5839" : "EasyPass\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++3735" : "optimize_publish\/"
+=======
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++4593" : "release\/",
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2322" : "release-1.0.1\/"
+    "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2322" : "EasyPass\/"
+>>>>>>> .merge-right.r1706
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CYTEasyPass",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CYTEasyPass.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/192.168.70.71\/svn\/App",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++BDF3A88"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/192.168.70.71\/svn\/App",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++2506+++C245CFE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/192.168.70.71\/svn\/App",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++3735+++D889102"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/192.168.70.71\/svn\/App",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++4593+++9624568"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/192.168.70.71\/svn\/App",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++5839+++E593D15"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/192.168.70.71\/svn\/App",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "96ec9d49-5cb4-e445-95b5-2f53fdfb09f8++9279+++1A30CEC"
+    }
+  ]
+}

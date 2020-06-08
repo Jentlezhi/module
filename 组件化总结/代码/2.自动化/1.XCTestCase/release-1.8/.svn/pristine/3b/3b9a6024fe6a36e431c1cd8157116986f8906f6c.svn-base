@@ -1,0 +1,18 @@
+//
+//  CYTCashRecordModel.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/12/5.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFExtendModel.h"
+
+@interface CYTCashRecordModel : FFExtendModel
+@property (nonatomic, copy) NSString *amount;
+@property (nonatomic, copy) NSString *billsDescription;
+@property (nonatomic, copy) NSString *orderNum;
+@property (nonatomic, copy) NSString *time;
+@property (nonatomic, assign) NSInteger rowId;
+
+@end

@@ -1,0 +1,15 @@
+//
+//  CYTGetColorViewController.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/6/1.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTGetColorBasicViewController.h"
+
+@interface CYTGetColorViewController : CYTGetColorBasicViewController
+@property (nonatomic, weak) UIViewController *parentCtr;
+@property (nonatomic, copy) void (^getColorFinishedBlock) (CYTGetColorBasicVM *);
+
+@end

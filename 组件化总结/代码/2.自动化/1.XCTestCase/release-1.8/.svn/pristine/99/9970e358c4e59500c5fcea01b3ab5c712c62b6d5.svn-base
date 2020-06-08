@@ -1,0 +1,15 @@
+//
+//  LogisticsHome.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/10/9.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTBasicViewController.h"
+#import "LogisticsHomeVM.h"
+
+@interface LogisticsHome : CYTBasicViewController
+@property (nonatomic, strong) LogisticsHomeVM *viewModel;
+
+@end

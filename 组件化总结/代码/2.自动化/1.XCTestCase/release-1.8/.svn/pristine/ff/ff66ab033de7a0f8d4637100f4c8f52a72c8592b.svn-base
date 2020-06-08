@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C8C283DC-750D-4427-B962-E064D26E2ED4</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CYTEasyPass</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>46fc9466-0966-f941-9c0b-00a92b7a0327++3449</key>
+		<string>http://192.168.87.30:81/svn/develop/mobile/IOS/CheYuantong/trunk/CYTEasyPass</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CYTEasyPass.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>46fc9466-0966-f941-9c0b-00a92b7a0327++3449</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>46fc9466-0966-f941-9c0b-00a92b7a0327++3449</key>
+		<string>http://192.168.87.30:81/svn/develop</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://192.168.87.30:81/svn/develop/mobile/IOS/CheYuantong/trunk/CYTEasyPass/CYTEasyPass.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>46fc9466-0966-f941-9c0b-00a92b7a0327++3449</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>46fc9466-0966-f941-9c0b-00a92b7a0327++3449</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CYTEasyPass</string>
+		</dict>
+	</array>
+</dict>
+</plist>

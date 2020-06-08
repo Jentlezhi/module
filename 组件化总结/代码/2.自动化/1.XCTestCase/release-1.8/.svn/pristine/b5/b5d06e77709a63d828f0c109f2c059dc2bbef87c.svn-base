@@ -1,0 +1,129 @@
+//
+//  CYTUpdateView.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/7/18.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTUpdateView.h"
+
+@interface CYTUpdateView ()
+@property (nonatomic, strong)CYTUpdateModel *model;
+
+@end
+
+@implementation CYTUpdateView
+
+- (void)ff_addSubViewAndConstraints {
+
+    [self addSubview:self.bgView];
+    [self addSubview:self.updateContentView];
+    [self addSubview:self.cancelButton];
+    
+    [self.bgView makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+
+    [self.updateContentView makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(CYTAutoLayoutV(217));
+        make.width.equalTo(CYTAutoLayoutH(620));
+        make.height.equalTo(CYTAutoLayoutH(820));
+    }];
+    [self.cancelButton makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.updateContentView.bottom).offset(CYTAutoLayoutV(80));
+    }];
+    
+}
+
+- (void)showUpdateWithModel:(CYTUpdateModel *)model {
+    _model = model;
+    
+    if (model.forceUpdate || model.needUpdate) {
+        
+        [kTabbarCtr.view addSubview:self];
+        [self makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(kTabbarCtr.view);
+        }];
+        
+        //动画
+        self.alpha = 0;
+        [UIView animateWithDuration:kAnimationDurationInterval animations:^{
+            self.alpha = 1;
+        }];
+        
+        //设置图片
+        [self.updateContentView.imageView sd_setImageWithURL:[NSURL URLWithString:model.tipImage] placeholderImage:[UIImage imageNamed:@"update_imageDefault"]];
+        self.cancelButton.hidden = (model.forceUpdate);
+    }
+}
+
+- (void)hide {
+    if (self.superview) {
+        [self removeFromSuperview];
+    }
+}
+
+#pragma mark- get
+- (UIView *)bgView {
+    if (!_bgView) {
+        _bgView = [UIView new];
+        _bgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4f];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        [[tap rac_gestureSignal] subscribeNext:^(id x) {
+            if (self.model.forceUpdate) {
+                return ;
+            }
+            
+            if (self.updateBlock) {
+                self.updateBlock(0);
+            }
+            
+            [self hide];
+        }];
+        [_bgView addGestureRecognizer:tap];
+    }
+    return _bgView;
+}
+
+- (CYTUpdateContentView *)updateContentView {
+    if (!_updateContentView) {
+        _updateContentView = [CYTUpdateContentView new];
+        [_updateContentView radius:4 borderWidth:0.5 borderColor:[UIColor clearColor]];
+        @weakify(self);
+        [_updateContentView setUpdateBlock:^{
+            @strongify(self);
+            if (self.updateBlock) {
+                self.updateBlock(1);
+            }
+        }];
+    }
+    return _updateContentView;
+}
+
+- (UIButton *)cancelButton {
+    if (!_cancelButton) {
+        _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_cancelButton setImage:[UIImage imageNamed:@"update_cancel"] forState:UIControlStateNormal];
+        [_cancelButton setImage:[UIImage imageNamed:@"update_cancel"] forState:UIControlStateHighlighted];
+        @weakify(self);
+        [[_cancelButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            if (self.model.forceUpdate) {
+                return ;
+            }
+            
+            if (self.updateBlock) {
+                self.updateBlock(0);
+            }
+            
+            [self hide];
+        }];
+        
+    }
+    return _cancelButton;
+}
+
+@end

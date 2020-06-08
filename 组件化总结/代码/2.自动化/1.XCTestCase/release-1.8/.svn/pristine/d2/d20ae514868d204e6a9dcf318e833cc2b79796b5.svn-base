@@ -1,0 +1,19 @@
+//
+//  CYTCashRecordCell.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 2017/12/5.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFExtendTableViewCell.h"
+#import "CYTCashRecordModel.h"
+
+@interface CYTCashRecordCell : FFExtendTableViewCell
+@property (nonatomic, strong) UILabel *recordTypeLabel;
+@property (nonatomic, strong) UILabel *cashAmountLabel;
+@property (nonatomic, strong) UILabel *orderNumberLabel;
+@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) CYTCashRecordModel *model;
+
+@end

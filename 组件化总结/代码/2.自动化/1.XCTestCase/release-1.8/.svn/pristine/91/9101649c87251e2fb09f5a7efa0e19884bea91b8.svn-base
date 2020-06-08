@@ -1,0 +1,15 @@
+//
+//  CYTLogisticsNeedDetailCtr.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/5/11.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTBasicViewController.h"
+#import "CYTLogisticsNeedDetailVM.h"
+
+@interface CYTLogisticsNeedDetailCtr : CYTBasicViewController
+@property (nonatomic, strong) CYTLogisticsNeedDetailVM *viewModel;
+
+@end

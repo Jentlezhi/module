@@ -1,0 +1,20 @@
+//
+//  FFBasicProject
+//
+//  Created by xujunquan on 17/6/2.
+//  Copyright © 2017年 ian. All rights reserved.
+//
+
+#ifndef FFBasicTool_h
+#define FFBasicTool_h
+
+#import "FFMainView.h"
+#import "FFBasicNetworkManager.h"
+#import "FFJPUSHManager.h"
+#import "FFCallCenterViewModel.h"
+#import "FFBasicSegmentView.h"
+#import "FFTabControl.h"
+#import "FFDZNCustomView.h"
+#import "FFSideSlideViewController.h"
+
+#endif /* FFBasicTool_h */

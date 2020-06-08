@@ -1,0 +1,59 @@
+//
+//  CYTEasyPassTests.m
+//  CYTEasyPassTests
+//
+//  Created by bita on 15/8/21.
+//  Copyright (c) 2015年 EasyPass. All rights reserved.
+//
+/*
+ 模块划分
+ 1、车源
+ 2、寻车
+ 3、车辆订单、物流订单、支付操作
+ 4、物流需求
+ 5、登录、注册、认证、用户操作
+ 6、消息
+ 7、h5
+ 8、其他
+ */
+
+/*
+ 单元测试优先级
+ 1、支付操作流程
+ 2、消息跳转
+ 
+ 
+ */
+
+#import <UIKit/UIKit.h>
+#import <XCTest/XCTest.h>
+
+@interface CYTEasyPassTests : XCTestCase
+
+@end
+
+@implementation CYTEasyPassTests
+
+- (void)setUp {
+    [super setUp];
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+}
+
+- (void)tearDown {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [super tearDown];
+}
+
+- (void)testExample {
+    // This is an example of a functional test case.
+    XCTAssert(YES, @"Pass");
+}
+
+- (void)testPerformanceExample {
+    // This is an example of a performance test case.
+    [self measureBlock:^{
+        // Put the code you want to measure the time of here.
+    }];
+}
+
+@end

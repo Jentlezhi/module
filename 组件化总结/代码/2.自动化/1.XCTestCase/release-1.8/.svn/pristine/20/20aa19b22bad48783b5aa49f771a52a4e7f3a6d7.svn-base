@@ -1,0 +1,24 @@
+//
+//  FFBasicCollectionViewCell.m
+//  FFObjC
+//
+//  Created by xujunquan on 16/10/24.
+//  Copyright © 2016年 org_ian. All rights reserved.
+//
+
+#import "FFBasicCollectionViewCell.h"
+
+@implementation FFBasicCollectionViewCell
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self cc_addSubViewAndConstraints];
+    }
+    return self;
+}
+
+- (void)cc_addSubViewAndConstraints {
+    
+}
+
+@end

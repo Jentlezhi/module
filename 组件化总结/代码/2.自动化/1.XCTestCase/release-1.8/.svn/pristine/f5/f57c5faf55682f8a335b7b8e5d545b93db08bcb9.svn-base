@@ -1,0 +1,150 @@
+//
+//  CYTH5ViewController.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/3/6.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTH5ViewController.h"
+#import "CYTWebLoadingProgressView.h"
+
+@interface CYTH5ViewController ()<UIWebViewDelegate>
+///边距
+@property (nonatomic, assign) UIEdgeInsets insets;
+/** 加载进度 */
+@property(strong, nonatomic) CYTWebLoadingProgressView *loadingProgressView;
+
+@end
+
+@implementation CYTH5ViewController
+
+- (CYTWebLoadingProgressView *)loadingProgressView{
+    if (!_loadingProgressView) {
+        CGFloat progressBarHeight = 2.f;
+        CGRect frame = CGRectMake(0, CYTViewOriginY - progressBarHeight, kScreenWidth, progressBarHeight);
+        _loadingProgressView = [[CYTWebLoadingProgressView alloc] initWithFrame:frame];
+        _loadingProgressView.progressBarColor = CYTGreenNormalColor;
+        _loadingProgressView.webViewProxyDelegate = self;
+    }
+    return _loadingProgressView;
+}
+
+- (instancetype)initWithViewModel:(id)viewModel {
+    if (self = [super initWithViewModel:viewModel]) {
+        _baseViewModel = viewModel;
+        _insets = UIEdgeInsetsMake(CYTViewOriginY, 0, 0, 0);
+        if (_baseViewModel) {
+            _insets = UIEdgeInsetsFromString(self.baseViewModel);
+        }
+    }
+    return self;
+}
+
+/**
+ *  添加进度条
+ */
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationZone addSubview:self.loadingProgressView];
+}
+/**
+ *  移除进度条
+ */
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self createNavBarWithTitle:@"" andShowBackButton:YES showRightButtonWithTitle:nil];
+    [self loadUI];
+    [self loadURL];
+}
+
+- (void)loadUI {
+    [self.view addSubview:self.webView];
+    self.webView.delegate = self.loadingProgressView;
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.insets);
+    }];
+}
+
+- (void)loadURL {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:self.requestURL] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
+    [self.webView loadRequest:request];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    !self.webViewLoadFail?:self.webViewLoadFail();
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError*)error{
+    !self.webViewLoadSuccess?:self.webViewLoadSuccess();
+}
+
+#pragma mark- cookie
++ (void)cleanCacheAndCookie{
+    //清除cookies
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies]){
+        [storage deleteCookie:cookie];
+    }
+}
+
++ (void)addCookie {
+    //登录后的token
+    NSString *auth = (![CYTAccountManager sharedAccountManager].accessToken)?@"":[CYTAccountManager sharedAccountManager].accessToken;
+    if (auth.length != 0) {
+        auth = [NSString stringWithFormat:@"Bearer %@",auth];
+    }
+    NSString *refreshToken = (![CYTAccountManager sharedAccountManager].refreshToken)?@"":[CYTAccountManager sharedAccountManager].refreshToken;
+    NSString *userId = CYTUserId;
+    
+    NSDictionary *item = @{@"keyName":@"userId",
+                           @"value":userId};
+    NSDictionary *item1 = @{@"keyName":@"token",
+                            @"value":auth};
+    NSDictionary *item2 = @{@"keyName":@"refreshToken",
+                            @"value":refreshToken};
+    NSDictionary *item3 = @{@"keyName":@"deviceId",
+                            @"value":CYTUUID};
+    
+    NSArray *array = @[item,item1,item2,item3];
+    
+    for (int i=0; i<array.count; i++) {
+        NSDictionary *dic = array[i];
+        
+        NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:
+                                [NSDictionary dictionaryWithObjectsAndKeys:
+                                 kURL.URLDomain,NSHTTPCookieDomain,
+                                 @"/",NSHTTPCookiePath,
+                                 @"0",NSHTTPCookieVersion,
+                                 dic[@"keyName"],NSHTTPCookieName,
+                                 dic[@"value"],NSHTTPCookieValue,
+                                 nil]];
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+        
+    }
+}
+
+#pragma mark- get
+- (UIWebView *)webView {
+    if (!_webView) {
+        _webView = [UIWebView new];
+        //        [_webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.background='#333333'"];
+        _webView.scrollView.delegate = self;
+        _webView.scrollView.bounces = YES;
+        _webView.delegate = self;
+        _webView.scrollView.showsVerticalScrollIndicator = NO;
+        _webView.scalesPageToFit = YES;
+    }
+    return _webView;
+}
+
+
+
+@end

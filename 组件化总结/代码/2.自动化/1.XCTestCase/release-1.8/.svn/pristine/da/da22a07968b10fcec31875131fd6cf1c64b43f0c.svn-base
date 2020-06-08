@@ -1,0 +1,102 @@
+//
+//  CYTShakeViewController.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/7/27.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTShakeViewController.h"
+#import "CYTShakeContentView.h"
+
+@interface CYTShakeViewController ()<UITableViewDelegate,UITableViewDataSource,FFMainViewDelegate>
+@property (nonatomic, strong) FFMainView *mainView;
+@property (nonatomic, strong) NSMutableArray *listArray;
+@property (nonatomic, strong) CYTShakeContentView *supernatantView;
+
+@end
+
+@implementation CYTShakeViewController
+
+- (void)ff_addSubViewAndConstraints {
+    [super ff_addSubViewAndConstraints];
+
+    [self.ffContentView addSubview:self.mainView];
+    [self.mainView makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.ffContentView);
+    }];
+}
+
+- (void)ff_initWithViewModel:(id)viewModel {
+    [super ff_initWithViewModel:viewModel];
+    
+    self.listArray = [NSMutableArray array];
+    
+    [self.listArray addObject:@"开发环境"];
+    [self.listArray addObject:@"测试环境"];
+    [self.listArray addObject:@"生产环境http"];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.ffTitle = @"设置运行环境";
+    [self.ffNavigationView showLeftItem:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    [self.supernatantView show];
+}
+
+#pragma mark- delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.listArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell identifier] forIndexPath:indexPath];
+    cell.textLabel.text = self.listArray[indexPath.row];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CYTURLType type = 0;
+    
+    if (indexPath.row == 0) {
+        type = CYTURLTypeDev;
+    }else if (indexPath.row == 1) {
+        type = CYTURLTypeTest;
+    }else if (indexPath.row == 2) {
+        type = CYTURLTypeProductionWNS;
+    }else {
+        
+    }
+    
+    //清除h5换粗
+    [CYTH5ViewController cleanCacheAndCookie];
+    //更改url
+    [[CYTURLManager shareManager] changeURLType:type];
+    //跳转到首页
+    [kAppdelegate goHomeView];
+}
+
+#pragma mark- get
+- (FFMainView *)mainView {
+    if (!_mainView) {
+        _mainView = [FFMainView new];
+        _mainView.delegate = self;
+        [CYTTools configForMainView:_mainView ];
+        [_mainView registerCellWithIdentifier:@[[UITableViewCell identifier]]];
+    }
+    return _mainView;
+}
+
+- (CYTShakeContentView *)supernatantView {
+    if (!_supernatantView) {
+        FFBasicSupernatantViewModel *vm = [FFBasicSupernatantViewModel new];
+        _supernatantView = [[CYTShakeContentView alloc] initWithViewModel:vm];
+    }
+    return _supernatantView;
+}
+
+@end

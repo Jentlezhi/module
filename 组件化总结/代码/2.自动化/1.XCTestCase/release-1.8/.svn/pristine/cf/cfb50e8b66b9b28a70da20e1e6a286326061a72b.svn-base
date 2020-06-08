@@ -1,0 +1,15 @@
+//
+//  CYTUpdateContentView.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/7/18.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFExtendView.h"
+
+@interface CYTUpdateContentView : FFExtendView
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, copy) void (^updateBlock) (void);
+
+@end

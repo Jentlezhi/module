@@ -1,0 +1,74 @@
+//
+//  JentleTestTwoViewController.m
+//  CYTEasyPass
+//
+//  Created by Jentle on 2017/5/12.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+/*
+ #import <FBRetainCycleDetector/FBRetainCycleDetector.h>
+ //    FBRetainCycleDetector *detector = [FBRetainCycleDetector new];
+ //    [detector addCandidate:self];
+ //    NSSet *retainCycles = [detector findRetainCycles];
+ //    CYTLog(@"%@", retainCycles);
+ FBRetainCycleDetector *detector = [FBRetainCycleDetector new];
+ [detector addCandidate:myObject];
+ NSSet *retainCycles = [detector findRetainCyclesWithMaxCycleLength:100];
+ */
+
+#import "JentleTestViewController.h"
+#import "CYTOrderCommitViewController.h"
+#import "CYTOrderBottomInfoView.h"
+#import "CYTOrderTopInfoView.h"
+#import "CYTProtocolView.h"
+#import "CYTOrderExtendViewController.h"
+#import "CYTOrderDetailViewController.h"
+#import "CYTConfirmSendCarViewController.h"
+#import "CYTVehicleToolsViewController.h"
+#import "CYTLoginViewController.h"
+#import "CYTOrderDetailViewController.h"
+#import "CYTOrderCommitViewController.h"
+#import "CYTVoucherPictureView.h"
+#import "CYTPersonalCertificateViewController.h"
+#import "CYTOrderDetailViewController.h"
+#import "CYTOrderExtendViewController.h"
+#import "CYTConfirmSendCarViewController.h"
+#import "CYTCompleteUserInfoViewController.h"
+#import "CYTImagePickerNavController.h"
+#import "CYTCarSourceAddImageViewController.h"
+#import "CYTHomeViewController.h"
+#import "CYTContactMeViewController.h"
+#import "CYTContactMeViewController.h"
+#import "CYTMyContactViewController.h"
+#import "CYTOrderExtendViewController.h"
+
+@interface JentleTestViewController ()
+
+/** <#注释#> */
+@property(strong, nonatomic) NSMutableArray *data;
+
+@end
+
+@implementation JentleTestViewController
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self createNavBarWithTitle:@"JentleTest"];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    UIImage *desImage = [UIImage imageNamed:@"drawer.png"];
+    UIImage *image = [desImage compressedToByte:kImageCompressedMaxSize];
+    NSData *data = UIImagePNGRepresentation(image);
+    [data writeToFile:@"/Users/Jentle/Desktop/搞笑Gif/test.png" atomically:YES];
+    
+    return;
+    CYTOrderExtendViewController *new = [CYTOrderExtendViewController orderExtendWithExtendType:CYTOrderExtendTypeSellerCancel orderStatus:0 orderId:@"0"];
+    [self.navigationController pushViewController:new animated:YES];
+}
+
+
+
+@end

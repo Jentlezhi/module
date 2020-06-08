@@ -1,0 +1,18 @@
+//
+//  CYTLogisticsNeedListItemBaseCtr.h
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/5/18.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "CYTBasicViewController.h"
+#import "CYTLogisticsNeedVM.h"
+
+@interface CYTLogisticsNeedListItemBaseCtr : CYTBasicViewController
+@property (nonatomic, strong) CYTLogisticsNeedVM *viewModel;
+@property (nonatomic, copy) void (^selectBlock) (CYTLogisticsNeedListModel *);
+
+- (void)refreshMethodWithNeed:(BOOL)need;
+
+@end

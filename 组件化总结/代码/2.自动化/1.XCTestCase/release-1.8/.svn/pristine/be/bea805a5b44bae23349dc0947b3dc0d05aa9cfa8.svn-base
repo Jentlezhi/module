@@ -1,0 +1,92 @@
+//
+//  FFBasicNetworkViewModel.m
+//  CYTEasyPass
+//
+//  Created by xujunquan on 17/9/18.
+//  Copyright © 2017年 EasyPass. All rights reserved.
+//
+
+#import "FFBasicNetworkViewModel.h"
+
+@implementation FFBasicNetworkViewModel
+
+- (void)ff_initWithModel:(FFExtendModel *)model {
+    self.hudSubject = [RACSubject new];
+}
+
+#pragma mark-
+- (RACCommand *)commandWithRequestModel:(FFBasicNetworkRequestModel*(^)(void))requestBlock andHandle:(void (^)(FFBasicNetworkResponseModel *))handleBlock {
+    return [self commandWithRequestModel:requestBlock andOtherObj:nil andHandle:handleBlock];
+}
+
+- (RACCommand *)commandWithRequestModel:(FFBasicNetworkRequestModel*(^)(void))requestBlock andOtherObj:(void(^)(id))otherObj andHandle:(void (^)(FFBasicNetworkResponseModel *))handleBlock {
+    @weakify(self);
+    RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
+        
+        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            
+            FFBasicNetworkRequestModel *model = requestBlock();
+            //对输入参数操作
+            model = [self requestModelHandle:model];
+            //hud 显示
+            if (model.needHud) {[self.hudSubject sendNext:@"0"];}
+            FFBasicNetworkManager *requestManager;
+            
+            if (model.methodType == NetRequestMethodTypePost) {
+                requestManager = [self.request postWithModel:model result:^(FFBasicNetworkResponseModel *responseObject) {
+                    [self handleResultWithResponse:responseObject andHandle:^(FFBasicNetworkResponseModel *resultModel) {
+                        if (handleBlock) {handleBlock(resultModel);}
+                        [subscriber sendNext:resultModel];
+                        [subscriber sendCompleted];
+                    }];
+                }];
+            }else {
+                requestManager = [self.request getWithModel:model result:^(FFBasicNetworkResponseModel *responseObject) {
+                    [self handleResultWithResponse:responseObject andHandle:^(FFBasicNetworkResponseModel *resultModel) {
+                        if (handleBlock) {handleBlock(resultModel);}
+                        [subscriber sendNext:resultModel];
+                        [subscriber sendCompleted];
+                    }];
+                }];
+            }
+            
+            !otherObj?:otherObj(requestManager.currentTask);
+            
+            return nil;
+        }];
+    }];
+    return command;
+}
+
+#pragma mark-
+- (void)handleResultWithResponse:(FFBasicNetworkResponseModel *)responseModel andHandle:(void (^)(FFBasicNetworkResponseModel *))handleBlock {
+    FFBasicNetworkResponseModel *resultModel = responseModel;
+    //对输出参数操作
+    [self responseModelHandleWithModel:resultModel andHandle:^(FFBasicNetworkResponseModel *result) {
+        if (handleBlock) {
+            handleBlock(result);
+        }
+    }];
+}
+
+#pragma mark-
+- (void)responseModelHandleWithModel:(FFBasicNetworkResponseModel *)inputModel andHandle:(void (^)(FFBasicNetworkResponseModel *))handle {
+    if (inputModel.requestParameters.needHud) {[self.hudSubject sendNext:@"1"];}
+    handle(inputModel);
+}
+
+- (FFBasicNetworkRequestModel *)requestModelHandle:(FFBasicNetworkRequestModel *)model {
+    return model;
+}
+
+
+#pragma mark- get
+- (FFBasicNetworkManager *)request {
+    if (!_request) {
+        _request = [FFBasicNetworkManager new];
+    }
+    return _request;
+}
+
+@end
