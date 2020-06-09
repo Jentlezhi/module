@@ -1,0 +1,16 @@
+PODS:
+  - MyPerson (0.0.1)
+
+DEPENDENCIES:
+  - MyPerson (from `../../localLib/MyPerson`)
+
+EXTERNAL SOURCES:
+  MyPerson:
+    :path: "../../localLib/MyPerson"
+
+SPEC CHECKSUMS:
+  MyPerson: 2bab48abb3e0cdbc04017d8a473b0e37c8f294e8
+
+PODFILE CHECKSUM: 6af7589f4ed852e0047462d486d7d5c277177deb
+
+COCOAPODS: 1.9.3
