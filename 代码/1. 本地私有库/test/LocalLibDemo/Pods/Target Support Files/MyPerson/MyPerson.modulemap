@@ -1,6 +1,0 @@
-framework module MyPerson {
-  umbrella header "MyPerson-umbrella.h"
-
-  export *
-  module * { export * }
-}

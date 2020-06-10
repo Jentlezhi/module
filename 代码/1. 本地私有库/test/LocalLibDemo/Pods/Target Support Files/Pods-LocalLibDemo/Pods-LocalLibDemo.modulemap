@@ -1,6 +1,0 @@
-framework module Pods_LocalLibDemo {
-  umbrella header "Pods-LocalLibDemo-umbrella.h"
-
-  export *
-  module * { export * }
-}
