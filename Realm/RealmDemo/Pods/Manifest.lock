@@ -1,0 +1,22 @@
+PODS:
+  - Realm (5.0.2):
+    - Realm/Headers (= 5.0.2)
+  - Realm/Headers (5.0.2)
+  - YYModel (1.0.4)
+
+DEPENDENCIES:
+  - Realm
+  - YYModel
+
+SPEC REPOS:
+  trunk:
+    - Realm
+    - YYModel
+
+SPEC CHECKSUMS:
+  Realm: 6b6f096671b64b04d08974177cabb2ff9343d153
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+
+PODFILE CHECKSUM: ea79bc0af211a2ec96160479b55b11387fedc9a7
+
+COCOAPODS: 1.9.3

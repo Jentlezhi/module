@@ -1,0 +1,19 @@
+# Uncomment the next line to define a global platform for your project
+
+
+target 'RealmDemo' do
+  platform :ios , '9.0'
+  use_frameworks!
+  pod 'Realm'
+  pod 'YYModel'
+end
+
+
+target 'RealmDemoTests' do
+  platform :ios , '9.0'
+  use_frameworks!
+  pod 'Realm'
+  pod 'YYModel'
+end
+
+
