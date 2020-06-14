@@ -10,6 +10,11 @@
 
 @implementation Student
 
+- (NSString *)ageDesc {
+    ///@property NSInteger age;不会生成setter和getter方法
+    return [NSString stringWithFormat:@"年龄：%ld",(long)self.age];
+}
+
 + (NSString *)primaryKey{
     
     return @"number";
@@ -33,5 +38,7 @@
 {
     return @[@"ageStr"];
 }
+
+
 
 @end

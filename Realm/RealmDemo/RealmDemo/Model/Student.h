@@ -13,7 +13,7 @@
 @property NSInteger number;
 @property NSInteger age;
 @property NSString *name;
-@property NSString *ageStr;
+@property(readonly) NSString *ageDesc;
 
 @end
 // This protocol enables typed collections. i.e.:

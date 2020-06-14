@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7CB5219BC30995C21D355B75 /* Pods_RealmDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13689AB6FF12FEE37B997847 /* Pods_RealmDemo.framework */; };
+		8C2E8F222495231C001200D2 /* NoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2E8F212495231C001200D2 /* NoticeModel.m */; };
 		8C3F827224880C2700D78F1C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F827124880C2700D78F1C /* AppDelegate.m */; };
 		8C3F827524880C2700D78F1C /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F827424880C2700D78F1C /* SceneDelegate.m */; };
 		8C3F827824880C2700D78F1C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F827724880C2700D78F1C /* ViewController.m */; };
@@ -17,6 +18,8 @@
 		8C3F828324880C2900D78F1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F828224880C2900D78F1C /* main.m */; };
 		8C3F828D24880C2900D78F1C /* RealmDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F828C24880C2900D78F1C /* RealmDemoTests.m */; };
 		8C3F829824880C2900D78F1C /* RealmDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F829724880C2900D78F1C /* RealmDemoUITests.m */; };
+		8C8FEF112495834E00A6FB83 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8FEF102495834E00A6FB83 /* DataModel.m */; };
+		8C8FEF142495FB2D00A6FB83 /* MigrateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8FEF132495FB2D00A6FB83 /* MigrateModel.m */; };
 		8CED3A7024919AE700FA9762 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CED3A6E24919A8900FA9762 /* Student.m */; };
 		8CED3A73249280AF00FA9762 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CED3A72249280AF00FA9762 /* Person.m */; };
 		8CED3A76249280E900FA9762 /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CED3A75249280E900FA9762 /* Dog.m */; };
@@ -48,6 +51,8 @@
 		3947B7EA1B45B8E7E6D0D6FA /* Pods-RealmDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmDemo.debug.xcconfig"; path = "Target Support Files/Pods-RealmDemo/Pods-RealmDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		3F8B4310B1639A859FE5FF9F /* Pods_RealmDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F08B22CBCF5440981AF284 /* Pods-RealmDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmDemo.release.xcconfig"; path = "Target Support Files/Pods-RealmDemo/Pods-RealmDemo.release.xcconfig"; sourceTree = "<group>"; };
+		8C2E8F202495231C001200D2 /* NoticeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeModel.h; sourceTree = "<group>"; };
+		8C2E8F212495231C001200D2 /* NoticeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeModel.m; sourceTree = "<group>"; };
 		8C3F826D24880C2600D78F1C /* RealmDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3F827024880C2600D78F1C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8C3F827124880C2700D78F1C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -66,6 +71,10 @@
 		8C3F829324880C2900D78F1C /* RealmDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealmDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3F829724880C2900D78F1C /* RealmDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RealmDemoUITests.m; sourceTree = "<group>"; };
 		8C3F829924880C2900D78F1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C8FEF0F2495834E00A6FB83 /* DataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
+		8C8FEF102495834E00A6FB83 /* DataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
+		8C8FEF122495FB2D00A6FB83 /* MigrateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MigrateModel.h; sourceTree = "<group>"; };
+		8C8FEF132495FB2D00A6FB83 /* MigrateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MigrateModel.m; sourceTree = "<group>"; };
 		8CED3A6D24919A8900FA9762 /* Student.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
 		8CED3A6E24919A8900FA9762 /* Student.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		8CED3A71249280AF00FA9762 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
@@ -116,6 +125,12 @@
 				8CED3A72249280AF00FA9762 /* Person.m */,
 				8CED3A74249280E900FA9762 /* Dog.h */,
 				8CED3A75249280E900FA9762 /* Dog.m */,
+				8C2E8F202495231C001200D2 /* NoticeModel.h */,
+				8C2E8F212495231C001200D2 /* NoticeModel.m */,
+				8C8FEF0F2495834E00A6FB83 /* DataModel.h */,
+				8C8FEF102495834E00A6FB83 /* DataModel.m */,
+				8C8FEF122495FB2D00A6FB83 /* MigrateModel.h */,
+				8C8FEF132495FB2D00A6FB83 /* MigrateModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -417,9 +432,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C3F827824880C2700D78F1C /* ViewController.m in Sources */,
+				8C8FEF112495834E00A6FB83 /* DataModel.m in Sources */,
 				8C3F827224880C2700D78F1C /* AppDelegate.m in Sources */,
 				8CED3A76249280E900FA9762 /* Dog.m in Sources */,
+				8C2E8F222495231C001200D2 /* NoticeModel.m in Sources */,
 				8CED3A73249280AF00FA9762 /* Person.m in Sources */,
+				8C8FEF142495FB2D00A6FB83 /* MigrateModel.m in Sources */,
 				8CF4A2752490E4FC006E12C2 /* ESRootClass.m in Sources */,
 				8C3F828324880C2900D78F1C /* main.m in Sources */,
 				8C3F827524880C2700D78F1C /* SceneDelegate.m in Sources */,

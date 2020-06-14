@@ -12,20 +12,92 @@
 #import "Person.h"
 #import "Dog.h"
 #import "ESRootClass.h"
-
+#import "NoticeModel.h"
+#import "DataModel.h"
+#import "MigrateModel.h"
 
 @interface RealmDemoTests : XCTestCase
+
+/// token
+@property(strong, nonatomic) RLMNotificationToken *token;
+/// token
+@property(strong, nonatomic) RLMNotificationToken *token2;
 
 @end
 
 @implementation RealmDemoTests
 
 - (void)setUp {
+    [super setUp];
+//    RLMRealm *realm = [RLMRealm defaultRealm];
+//    self.token = [realm addNotificationBlock:^(RLMNotification  _Nonnull notification, RLMRealm * _Nonnull realm) {
+//        NSLog(@"监听到修改通知");
+//    }];
+    
+//    RLMResults *results = [NoticeModel allObjects];
+//    self.token2 = [results addNotificationBlock:^(RLMResults * _Nullable results, RLMCollectionChange * _Nullable change, NSError * _Nullable error) {
+//        NSLog(@"results-%@",results);
+//        NSLog(@"change-%@",change);
+//        NSLog(@"error-%@",error);
+//    }];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    
+//    return;
+    ///数据迁移：
+    ///在[AppDelegate didFinishLaunchingWithOptions:]中进行设置
+    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+    ///叠加版本号，要比上次的版本号高
+    int newVersion = 11;
+    config.schemaVersion = newVersion;
+    config.migrationBlock = ^(RLMMigration * _Nonnull migration, uint64_t oldSchemaVersion) {
+        if (oldSchemaVersion < newVersion) {
+            ///数据迁移：
+            NSLog(@"数据迁移");
+            [migration enumerateObjects:MigrateModel.className block:^(RLMObject * _Nullable oldObject, RLMObject * _Nullable newObject) {
+                newObject[@"fullName"] = [NSString stringWithFormat:@"%@%@",oldObject[@"name"],oldObject[@"age"]];
+            }];
+        }
+    };
+    ///配置生效
+    [RLMRealmConfiguration setDefaultConfiguration:config];
+    ///立即迁移
+    [RLMRealm defaultRealm];
+    
+
+}
+
+- (void)testDataMigration {
+    
+    MigrateModel *model = MigrateModel.new;
+    model.name = @"mazi";
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm transactionWithBlock:^{
+        [realm addObject:model];
+    }];
+    
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [self.token invalidate];
+    [super tearDown];
+}
+
+- (void)testToken {
+    
+    NoticeModel *model = [[NoticeModel alloc] initWithValue:@{@"a":@2}];
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm transactionWithBlock:^{
+        [realm addObject:model];
+    }];
+}
+
+- (void)testResultsNotice {
+    
+//    RLMSyncUser
+//    RLMSyncUser *user = [RLMSyncUser logInWithCredentials:<#(nonnull RLMSyncCredentials *)#> authServerURL:<#(nonnull NSURL *)#> onCompletion:<#^(RLMSyncUser * _Nullable, NSError * _Nullable)completion#>]
+
 }
 
 - (void)testSaveItem {
@@ -150,7 +222,7 @@
     Student *s = [Student new];
     s.name = @"ljr";
     s.age = 1;
-    s.ageStr = @"15";
+    s.number = 1;
     /*
      + (NSArray<NSString *> *)requiredProperties {
          
@@ -164,6 +236,33 @@
     [realm transactionWithBlock:^{
         [realm addObject:s];
     }];
+}
+
+- (void)testReadIgnoreProperty {
+    
+    Student *s = [Student allObjects].lastObject;
+    NSLog(@"s.ageDesc=%@",s.ageDesc);
+}
+
+- (void)testChangeConfiguration {
+    
+    [self setDefaultRealmForUser:@"zhangsan"];
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    NSLog(@"%@",[RLMRealmConfiguration defaultConfiguration].fileURL);
+
+}
+
+- (void)testmigrate {
+    
+    
+}
+
+- (void)setDefaultRealmForUser:(NSString *)userName {
+    
+    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+    config.fileURL = [[[config.fileURL URLByDeletingLastPathComponent] URLByAppendingPathComponent:userName] URLByAppendingPathExtension:@"realm"];
+    [RLMRealmConfiguration setDefaultConfiguration:config];
+    
 }
 
 - (void)testPerformanceExample {
