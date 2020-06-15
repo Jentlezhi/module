@@ -1,0 +1,31 @@
+{
+    "data": {
+        "total": 10826,
+        "isHint": false,
+        "viewModelUrl": "http://dev.yxt.easypass.cn/h5/cxtGatherArticle/#/chooseCar",
+        "isMore": true,
+        "list": [{
+            "newsId": 11844989,
+            "newsUrl": "http://dev.yxt.easypass.cn/h5/cxtGatherArticle/#/articleDetail?newsId=11844989",
+            "title": "北京将促进汽车等大宗商品消费",
+            "cover": ["http://img1.bitautoimg.com/newsimg_300x200/bitauto/2020/06/10/a1b9fa08-8642-4dd8-8072-352d1acfd5cd_630_w1.jpg"],
+            "publishTimeStr": "7分钟前",
+            "categoryId": 608,
+            "relateSerialId": ""
+        }, {
+            "newsId": 11844874,
+            "newsUrl": "http://dev.yxt.easypass.cn/h5/cxtGatherArticle/#/articleDetail?newsId=11844874",
+            "title": "江淮大众结盟苏宁汽车、博泰悦臻 开启在线汽车销售",
+            "cover": ["http://img1.bitautoimg.com/newsimg_300x200/bitauto/2020/06/10/65b8e722-346d-48c2-a878-9f129300a1bd_630_w0.jpg", "http://img1.bitautoimg.com/newsimg_300x200/bitauto/2020/06/10/589f2837-2f47-4d98-a9ee-3e12751305f9_630_w0.jpg", "http://image.bitautoimg.com/newsimg_300x200/bitauto/2020/06/10/31dc7f7e-5782-45ec-9403-b936b3a0733e_630_w0.jpg"],
+            "publishTimeStr": "17分钟前",
+            "categoryId": 634,
+            "relateSerialId": "5383"
+        }],
+        "moreUrl": "http://dev.yxt.easypass.cn/h5/cxtGatherArticle/#/gatherArticle",
+        "url": "cxt://flutter_router/editCustomerCard?titleName=编辑展厅营销名片&vCardType=1"
+    },
+    "message": "获取成功",
+    "errorCode": 0,
+    "result": true,
+    "version": -1
+}
