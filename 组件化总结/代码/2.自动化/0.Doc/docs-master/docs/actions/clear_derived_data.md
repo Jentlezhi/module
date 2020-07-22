@@ -1,0 +1,57 @@
+<!--
+This file is auto-generated and will be re-generated every time the docs are updated.
+To modify it, go to its source at https://github.com/fastlane/fastlane.
+-->
+
+# clear_derived_data
+
+
+Deletes the Xcode Derived Data
+
+
+
+
+> Deletes the Derived Data from '~/Library/Developer/Xcode/DerivedData' or a supplied path
+
+
+clear_derived_data |
+-----|----
+Supported platforms | ios, mac
+Author | @KrauseFx
+
+
+
+## 2 Examples
+
+```ruby
+clear_derived_data
+```
+
+```ruby
+clear_derived_data(derived_data_path: "/custom/")
+```
+
+
+
+
+
+## Parameters
+
+Key | Description
+----|------------
+  `derived_data_path` | Custom path for derivedData
+
+
+
+
+<hr />
+To show the documentation in your terminal, run
+```no-highlight
+fastlane action clear_derived_data
+```
+
+<a href="https://github.com/fastlane/fastlane/blob/master/fastlane/lib/fastlane/actions/clear_derived_data.rb" target="_blank">View source code</a>
+
+<hr />
+
+<a href="/actions"><b>Back to actions</b></a>
