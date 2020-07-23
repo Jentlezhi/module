@@ -1,0 +1,16 @@
+PODS:
+  - JZToast (0.1.1)
+
+DEPENDENCIES:
+  - JZToast
+
+SPEC REPOS:
+  https://gitee.com/jentle_095/specs.git:
+    - JZToast
+
+SPEC CHECKSUMS:
+  JZToast: eba5a472907c2f2a81facb63de0b2d0f9d457caa
+
+PODFILE CHECKSUM: beb2dcc072b7c7cdb03b03addcaf8fa8e7d83ad2
+
+COCOAPODS: 1.9.3

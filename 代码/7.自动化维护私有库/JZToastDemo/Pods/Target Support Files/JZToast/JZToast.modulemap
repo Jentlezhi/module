@@ -1,0 +1,6 @@
+framework module JZToast {
+  umbrella header "JZToast-umbrella.h"
+
+  export *
+  module * { export * }
+}
